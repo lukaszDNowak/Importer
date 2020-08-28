@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<input type="file" id="file">
+<button id='process-file-button'>Process</button>
+
+<script type="text/javascript">
+    $('#process-file-button').on('click', function (e) {
+    let files = new FormData(),
+        url = 'https://localhost:44316/EPPlus/import';
+
+    files.append('fileName', $('#file')[0].files[0]); // append selected file to the bag named 'file'
+
+    $.ajax({
+        type: 'post',
+        url: url,
+        processData: false,
+        contentType: false,
+        data: files,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+    });
+    </script>
